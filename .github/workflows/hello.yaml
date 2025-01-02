@@ -7,9 +7,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: source
-        run: echo "result=Hello >> "${GITHUB_OUTPUT}"
+        run: echo "result=Hello" >> "${GITHUB_OUTPUT}"
       - run: echo "${RESULT}"
         env:
           RESULT: ${{ steps.source.outputs.result }}
       - run: echo "RESULT2=hello2" >> "${GITHUB_ENV}"
       - run: echo "${RESULT2}"
+  comment:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - run: gh pr comment "${GITHUB_HEAD_REF}" --body "Hello,${GITHUB_ACTOR}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
