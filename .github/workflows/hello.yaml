@@ -1,13 +1,16 @@
 name: Environment variables
 on: push
+env:
+  BRANCH: main
 jobs:
   run:
     runs-on: ubuntu-latest
-    env:
-      BRANCH: main
     steps:
       - run: echo "${BRANCH}"
       - run: node -v
       - uses: actions/checkout@v4
         with:
           ref: ${{ env.BRANCH }}
+      - env:
+          BRANCH: develop
+          run: echo "${BRANCH}"
