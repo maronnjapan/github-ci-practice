@@ -3,6 +3,8 @@ on: push
 jobs:
   print:
     runs-on: ubuntu-latest
+    env:
+      URLS: ${{ github.event.*.html_url }}
     steps:
       - run: printenv | grep 'LITERAL_'
         env:
@@ -11,3 +13,4 @@ jobs:
           LITERAL_NUMBER: ${{ 1234 }}
           LITERAL_STRING: ${{ 'Hello' }}
           LITERAL_OMIT_STRING: World
+      - run: echo "${URLS}"
