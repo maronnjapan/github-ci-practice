@@ -1,7 +1,9 @@
 name: Literals
+run-name: Run by @${{ github.actor }}
 on: push
 jobs:
   print:
+    name: Super Useful Job
     runs-on: ubuntu-latest
     steps:
       - run: echo "HELLO"
